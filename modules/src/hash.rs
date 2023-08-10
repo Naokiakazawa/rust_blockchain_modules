@@ -5,7 +5,7 @@ use tracing::info;
 
 pub fn get_hash<D: Digest>(inputs: Vec<String>) -> Result<Vec<u8>> {
     info!("Calcurate single hash");
-    
+
     let mut hasher = D::new();
     for input in inputs.iter() {
         hasher.update(input.as_bytes());
