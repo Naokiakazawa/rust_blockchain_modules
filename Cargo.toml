@@ -9,3 +9,5 @@ edition = "2021"
 sha2 = "0.10.7"
 
 modules = { path = "modules" }
+tracing = "0.1.37"
+tracing-subscriber = "0.3.17"
