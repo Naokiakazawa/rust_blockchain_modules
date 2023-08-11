@@ -1,17 +1,9 @@
-use anyhow::Result;
 use sha2::Digest;
 
-pub fn get_hash<D: Digest>(inputs: Vec<String>) -> Result<Vec<u8>> {
+pub fn get_hash_256<D: Digest>(input: &[u8], output: &mut [u8; 32]) -> () {
     let mut hasher = D::new();
-    for input in inputs.iter() {
-        hasher.update(input.as_bytes());
-    }
-
+    hasher.update(input);
     let hash = hasher.finalize();
 
-    let sz = <D as Digest>::output_size();
-    let mut output = vec![0; sz];
     output.copy_from_slice(&hash);
-
-    Ok(output)
 }

@@ -1,13 +1,17 @@
 use modules::{hash, utils};
-use sha2::Sha256;
+use tracing::trace;
 
 pub fn execute_hash() {
-    let input_data: String = String::from("hello");
-    let inputs_data: Vec<String> = vec![input_data];
+    let mut output_hash_buffer: [u8; 32] = [0; 32];
+    let input_data: Vec<u8> = String::from("hello").into_bytes();
+    hash::get_hash_256::<sha2::Sha256>(&input_data, &mut output_hash_buffer);
+    let hash_string: String = utils::hex_to_string(&output_hash_buffer);
 
-    let output_hash: Vec<u8> = hash::get_hash::<Sha256>(inputs_data).unwrap();
-    let hash_string: String = utils::hex_to_string(&output_hash);
+    trace!(hash_string, "Hash result 0");
 
-    println!("{:?}", output_hash);
-    println!("{}", hash_string);
+    let input_data_1: Vec<u8> = String::from("HELLO").into_bytes();
+    hash::get_hash_256::<sha2::Sha256>(&input_data_1, &mut output_hash_buffer);
+    let hash_string_1: String = utils::hex_to_string(&output_hash_buffer);
+
+    trace!(hash_string_1, "Hash result 1");
 }
