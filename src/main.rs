@@ -13,4 +13,6 @@ fn main() {
     execute::calc_hash::execute_hash();
     info!("Execute Hashchain");
     execute::calc_hashchain::execute_hashchain();
+    info!("Execute Merkle tree");
+    execute::calc_merkle_root::execute_merkletree();
 }
