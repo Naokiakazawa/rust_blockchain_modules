@@ -8,5 +8,6 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.72"
 chrono = "0.4.26"
+serde = { version = "1.0.183", features = ["derive"] }
 sha2 = "0.10.7"
 tracing = "0.1.37"

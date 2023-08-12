@@ -169,6 +169,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "chrono",
+ "serde",
  "sha2",
  "tracing",
 ]
@@ -211,6 +212,12 @@ checksum = "50f3b39ccfb720540debaa0164757101c08ecb8d326b15358ce76a62c7e85965"
 dependencies = [
  "proc-macro2",
 ]
+
+[[package]]
+name = "serde"
+version = "1.0.183"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32ac8da02677876d532745a130fc9d8e6edfa81a269b107c5b00829b91d8eb3c"
 
 [[package]]
 name = "sha2"
