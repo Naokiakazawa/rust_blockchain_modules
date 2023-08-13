@@ -15,4 +15,6 @@ fn main() {
     execute::calc_hashchain::execute_hashchain();
     info!("Execute Merkle tree");
     execute::calc_merkle_root::execute_merkletree();
+    info!("Execute PoW");
+    execute::calc_pow::execute_pow();
 }

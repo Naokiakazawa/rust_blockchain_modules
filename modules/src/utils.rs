@@ -19,3 +19,12 @@ pub fn bundle_bytes(inputs: Vec<Vec<u8>>) -> Vec<u8> {
 
     result
 }
+
+pub fn convert_u32_vec_u8(value: u32) -> Vec<u8> {
+    vec![
+        ((value >> 24) & 0xFF) as u8,
+        ((value >> 16) & 0xFF) as u8,
+        ((value >> 8) & 0xFF) as u8,
+        (value & 0xFF) as u8,
+    ]
+}
