@@ -1842,6 +1842,7 @@ dependencies = [
  "ethers",
  "hmac",
  "keccak-hash",
+ "rand",
  "ripemd",
  "serde",
  "sha2 0.10.7",

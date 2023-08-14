@@ -17,4 +17,8 @@ fn main() {
     execute::calc_merkle_root::execute_merkletree();
     info!("Execute PoW");
     execute::calc_pow::execute_pow();
+    info!("Create Bitcoin Wallet Address");
+    execute::calc_wallet::create_bitcoin_address();
+    info!("Create Ethereum Wallet Address");
+    execute::calc_wallet::create_ethereum_address();
 }
