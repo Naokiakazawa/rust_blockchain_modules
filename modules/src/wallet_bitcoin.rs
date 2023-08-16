@@ -1,5 +1,6 @@
 use crate::hash;
 use crate::utils::hex_to_string;
+use anyhow::{anyhow, Result};
 use bs58;
 use rand::{self, Rng};
 use secp256k1::{PublicKey, Secp256k1, SecretKey};
@@ -7,10 +8,20 @@ use secp256k1::{PublicKey, Secp256k1, SecretKey};
 pub fn create_address() -> String {
     let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
     let _random_number: [u8; 32] = rng.gen();
-    create_address_from_secret(&_random_number)
+    _create_address_from_secret(&_random_number)
 }
 
-fn create_address_from_secret(secret: &[u8; 32]) -> String {
+pub fn create_address_from_secret(secret: String) -> Result<String, anyhow::Error> {
+    let secret_bytes: &[u8] = secret.as_bytes();
+    if secret_bytes.len() != 32 {
+        return Err(anyhow!("The length of the input string must be 32 bytes."));
+    }
+    let mut converted: [u8; 32] = [0; 32];
+    converted.copy_from_slice(secret_bytes);
+    Ok(_create_address_from_secret(&converted))
+}
+
+fn _create_address_from_secret(secret: &[u8; 32]) -> String {
     let mut output_buffer_sha256: [u8; 32] = [0; 32];
     let mut output_buffer_ripemd: [u8; 20] = [0; 20];
     let s: Secp256k1<secp256k1::All> = Secp256k1::new();
