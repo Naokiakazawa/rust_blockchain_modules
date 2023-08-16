@@ -35,8 +35,7 @@ fn create_address_from_secret(secret: &[u8; 32]) -> String {
     prefix_payload[0] = PREFIX[0];
     prefix_payload[1..].copy_from_slice(&payload);
 
-    // TODO: double hash
-    hash::get_hash_256::<sha2::Sha256>(&prefix_payload, &mut output_buffer_sha256);
+    hash::get_hash_double_256::<sha2::Sha256>(&prefix_payload, &mut output_buffer_sha256);
     let h: [u8; 32] = output_buffer_sha256;
     let checksum: [u8; 4] = [h[0], h[1], h[2], h[3]];
 
@@ -46,6 +45,7 @@ fn create_address_from_secret(secret: &[u8; 32]) -> String {
     println!("{:?}", prefix_payload_checksum);
     println!("{:?}", hex_to_string(&prefix_payload_checksum));
 
-    bs58::encode(prefix_payload_checksum).with_alphabet(bs58::Alphabet::BITCOIN).into_string()
-
+    bs58::encode(prefix_payload_checksum)
+        .with_alphabet(bs58::Alphabet::BITCOIN)
+        .into_string()
 }
