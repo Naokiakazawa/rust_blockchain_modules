@@ -1829,6 +1829,7 @@ dependencies = [
  "bs58 0.5.0",
  "chrono",
  "ethers",
+ "hex",
  "hmac",
  "keccak-hash",
  "rand",

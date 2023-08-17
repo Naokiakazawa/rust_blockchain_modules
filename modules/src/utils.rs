@@ -28,3 +28,9 @@ pub fn convert_u32_vec_u8(value: u32) -> Vec<u8> {
         (value & 0xFF) as u8,
     ]
 }
+
+pub fn get_last_160bits(data: [u8; 32]) -> [u8; 20] {
+    let mut output: [u8; 20] = [0; 20];
+    output.copy_from_slice(&data[12..]);
+    output
+}

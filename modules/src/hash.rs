@@ -1,3 +1,4 @@
+use keccak_hash::keccak_256;
 use ripemd::Ripemd160;
 use sha2::Digest;
 use tracing::debug;
@@ -32,4 +33,8 @@ pub fn get_hash_ripemd(input: &[u8], output: &mut [u8; 20]) {
     let hash = hasher.finalize();
 
     output.copy_from_slice(&hash);
+}
+
+pub fn get_keccak_256(input: &[u8], output: &mut [u8; 32]) {
+    keccak_256(input, output);
 }

@@ -282,6 +282,7 @@ dependencies = [
 name = "blockchain_modules"
 version = "0.1.0"
 dependencies = [
+ "dotenv",
  "modules",
  "sha2 0.10.7",
  "tracing",
@@ -679,6 +680,12 @@ dependencies = [
  "redox_users",
  "winapi",
 ]
+
+[[package]]
+name = "dotenv"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "dunce"
@@ -1839,6 +1846,7 @@ dependencies = [
  "bs58 0.5.0",
  "chrono",
  "ethers",
+ "hex",
  "hmac",
  "keccak-hash",
  "rand",
