@@ -1,7 +1,7 @@
-use modules::{wallet_bitcoin, wallet_ethereum};
-use tracing::info;
 use dotenv::dotenv;
+use modules::{wallet_bitcoin, wallet_ethereum};
 use std::env;
+use tracing::info;
 
 pub fn create_bitcoin_address() {
     let addr: String = wallet_bitcoin::create_address();
