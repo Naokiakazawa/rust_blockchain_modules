@@ -49,8 +49,6 @@ fn _create_address_from_secret(secret: &[u8; 32]) -> String {
     let mut prefix_payload_checksum: [u8; 25] = [0; 25];
     prefix_payload_checksum[..21].copy_from_slice(&prefix_payload);
     prefix_payload_checksum[21..].copy_from_slice(&checksum);
-    println!("{:?}", prefix_payload_checksum);
-    println!("{:?}", hex_to_string(&prefix_payload_checksum));
 
     bs58::encode(prefix_payload_checksum)
         .with_alphabet(bs58::Alphabet::BITCOIN)
