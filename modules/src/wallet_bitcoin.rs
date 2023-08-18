@@ -1,5 +1,4 @@
 use crate::hash;
-use crate::utils::hex_to_string;
 use anyhow::{anyhow, Result};
 use bs58;
 use rand::{self, Rng};
