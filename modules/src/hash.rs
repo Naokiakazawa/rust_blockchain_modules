@@ -18,13 +18,11 @@ pub fn get_hash_double_256<D: Digest>(input: &[u8], output: &mut [u8; 32]) {
     hasher.update(input);
     let hash_1 = hasher.finalize();
     intermediate_hash.copy_from_slice(&hash_1);
-    debug!("Generate intermediate hash");
 
     let mut hasher = D::new();
     hasher.update(intermediate_hash);
     let hash_2 = hasher.finalize();
     output.copy_from_slice(&hash_2);
-    debug!("Generate double hash");
 }
 
 pub fn get_hash_ripemd(input: &[u8], output: &mut [u8; 20]) {
