@@ -35,6 +35,8 @@ pub fn get_hash_ripemd(input: &[u8], output: &mut [u8; 20]) {
     output.copy_from_slice(&hash);
 }
 
-pub fn get_keccak_256(input: &[u8], output: &mut [u8; 32]) {
-    keccak_256(input, output);
+pub fn get_keccak_256(input: &[u8]) -> [u8; 32] {
+    let mut output_buffer_256: [u8; 32] = [0; 32];
+    keccak_256(input, &mut output_buffer_256);
+    output_buffer_256
 }
