@@ -28,9 +28,6 @@ fn _create_address_from_secret(secret: &[u8; 32]) -> String {
 
     let secret_key: SecretKey = SecretKey::from_slice(secret).expect("32 bytes");
     let public_key: PublicKey = PublicKey::from_secret_key(&s, &secret_key);
-    println!("{:?}", &secret_key.display_secret());
-    println!("{:?}", &public_key.serialize());
-    println!("{:?}", &public_key.serialize_uncompressed());
 
     hash::get_hash_256::<sha2::Sha256>(
         &public_key.serialize_uncompressed(),
@@ -38,7 +35,6 @@ fn _create_address_from_secret(secret: &[u8; 32]) -> String {
     );
     hash::get_hash_ripemd(&output_buffer_sha256, &mut output_buffer_ripemd);
     let payload: [u8; 20] = output_buffer_ripemd;
-    println!("{:?}", &payload);
 
     const PREFIX: [u8; 1] = [0];
 
