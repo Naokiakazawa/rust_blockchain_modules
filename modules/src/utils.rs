@@ -1,8 +1,8 @@
 pub fn hex_to_string(data: &[u8]) -> String {
-    let mut ret = String::new();
+    let mut ret: String = String::new();
 
     for d in data {
-        let x = format!("{:02x}", d);
+        let x: String = format!("{:02x}", d);
         ret.push_str(&x);
     }
 
@@ -27,4 +27,10 @@ pub fn convert_u32_vec_u8(value: u32) -> Vec<u8> {
         ((value >> 8) & 0xFF) as u8,
         (value & 0xFF) as u8,
     ]
+}
+
+pub fn get_last_160bits(data: [u8; 32]) -> [u8; 20] {
+    let mut output: [u8; 20] = [0; 20];
+    output.copy_from_slice(&data[12..]);
+    output
 }
