@@ -1,7 +1,6 @@
 use keccak_hash::keccak_256;
 use ripemd::Ripemd160;
 use sha2::Digest;
-use tracing::debug;
 
 pub fn get_hash_256<D: Digest>(input: &[u8], output: &mut [u8; 32]) {
     let mut hasher = D::new();
