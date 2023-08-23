@@ -15,10 +15,12 @@ fn main() {
     execute::calc_hashchain::execute_hashchain();
     info!("Execute Merkle tree");
     execute::calc_merkle_root::execute_merkletree();
-    info!("Execute PoW");
-    execute::calc_pow::execute_pow();
     info!("Create Bitcoin Wallet Address");
     execute::calc_wallet::create_bitcoin_address();
     info!("Create Ethereum Wallet Address");
     execute::calc_wallet::create_ethereum_address();
+    info!("Execute PoW");
+    execute::calc_pow::execute_pow();
+    info!("Execute PoW v2");
+    execute::calc_pow::execute_pow_v2();
 }

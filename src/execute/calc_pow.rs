@@ -1,5 +1,5 @@
-use modules::pow;
 use modules::utils;
+use modules::{pow, pow_v2};
 use tracing::info;
 
 pub fn execute_pow() {
@@ -7,8 +7,17 @@ pub fn execute_pow() {
     for block in blocks.into_iter() {
         let hash: String = utils::hex_to_string(&block.block_hash);
         let nonce: u32 = block.nonce;
-        let timestamp: u32 = block.timestamp;
         let elapsed_time: u128 = block.elapsed_time;
-        info!(hash, timestamp, elapsed_time, nonce, "Mining Result");
+        info!(hash, nonce, elapsed_time, "Mining Result");
+    }
+}
+
+pub fn execute_pow_v2() {
+    let blocks: Vec<pow_v2::Block> = pow_v2::proof_of_work(5);
+    for block in blocks.into_iter() {
+        let hash: String = utils::hex_to_string(&block.block_hash);
+        let nonce: u32 = block.nonce;
+        let elapsed_time: u128 = block.elapsed_time;
+        info!(hash, nonce, elapsed_time, "Mining Result");
     }
 }
