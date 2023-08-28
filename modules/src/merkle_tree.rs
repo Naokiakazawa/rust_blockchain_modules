@@ -30,7 +30,7 @@ pub fn create_merkle(inputs: Vec<String>) -> Vec<u8> {
         }
         leaf_hashes = inner_hashes;
     }
-    let root: Vec<u8> = leaf_hashes.pop_front().unwrap_or_else(std::vec::Vec::new);
+    let root: Vec<u8> = leaf_hashes.pop_front().unwrap_or_default();
     let merkle_root: String = hex_to_string(&root);
     trace!(merkle_root, "Calcurated merkle root");
     root
