@@ -1,5 +1,5 @@
-use modules::{utils, pow_multithread};
 use modules::{pow, pow_v2};
+use modules::{pow_multithread, utils};
 use tracing::info;
 
 pub fn execute_pow() {
