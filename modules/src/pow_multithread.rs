@@ -1,11 +1,10 @@
 use crate::hash;
 use crate::utils;
 use chrono::Utc;
+use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
-// use std::thread;
-// use std::time::{Duration, Instant};
-use rayon::prelude::*;
+use std::time::{Duration, Instant};
 use tracing::{info, trace};
 
 #[derive(Serialize, Deserialize, Clone, Copy)]
@@ -14,7 +13,7 @@ pub struct Block {
     pub previous_hash: [u8; 32],
     pub timestamp: u32,
     pub nonce: u32,
-    // pub elapsed_time: u128,
+    pub elapsed_time: u128,
 }
 
 impl Block {
@@ -24,7 +23,7 @@ impl Block {
             previous_hash: prev_hash,
             timestamp: Utc::now().timestamp() as u32,
             nonce: initial_nonce,
-            // elapsed_time: 0,
+            elapsed_time: 0,
         }
     }
 }
@@ -47,6 +46,7 @@ pub fn proof_of_work(height: usize, threads: u32) -> Vec<Block> {
                 if block_chain.lock().unwrap().len() > 0 {
                     block.previous_hash = block_chain.lock().unwrap().last().unwrap().block_hash;
                 }
+                let start: Instant = Instant::now();
                 loop {
                     // Check status
                     if *found.lock().unwrap() {
@@ -70,7 +70,9 @@ pub fn proof_of_work(height: usize, threads: u32) -> Vec<Block> {
 
                     // Find blockhash and nonce
                     if block_hash < **target {
+                        let end: Duration = start.elapsed();
                         block.block_hash = block_hash;
+                        block.elapsed_time = end.as_millis();
                         block_chain.lock().unwrap().push(block);
                         *found.lock().unwrap() = true;
                         info!(thread, "Success mining");
