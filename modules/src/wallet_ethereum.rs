@@ -23,7 +23,7 @@ pub fn create_address_from_secret(secret: &str) -> String {
     debug!(address, "address without checksum");
 
     // checksum
-    let address_str: &str = std::str::from_utf8(&address.as_bytes()).expect("Invalid UTF-8 data");
+    let address_str: &str = std::str::from_utf8(address.as_bytes()).expect("Invalid UTF-8 data");
     let r: [u8; 32] = hash::get_keccak_256(address_str.as_bytes());
     let binding: String = utils::hex_to_string(&r).to_lowercase();
     let reference: &str = binding.as_str();
