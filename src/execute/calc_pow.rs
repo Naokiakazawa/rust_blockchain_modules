@@ -36,6 +36,9 @@ pub fn compare_outputs() {
     const HEIGHT: usize = 5;
     let blocks_singlethread: Vec<pow::Block> = pow::proof_of_work(HEIGHT);
     let blocks_multithread: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(HEIGHT, 4);
+    let mut single_time_sum: u128 = 0;
+    let mut multi_time_sum: u128 = 0;
+
     for i in 0..HEIGHT {
         assert!(
             blocks_singlethread[i].block_hash == blocks_multithread[i].block_hash,
@@ -49,5 +52,8 @@ pub fn compare_outputs() {
             blocks_singlethread[i].nonce,
             blocks_multithread[i].nonce
         );
+        single_time_sum += blocks_singlethread[i].elapsed_time;
+        multi_time_sum += blocks_multithread[i].elapsed_time;
     }
+    info!(single_time_sum, multi_time_sum, "Elapsed time detail");
 }
