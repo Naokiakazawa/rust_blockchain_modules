@@ -1,5 +1,6 @@
 use modules::{pow, pow_v2};
 use modules::{pow_multithread, utils};
+use std::thread;
 use tracing::info;
 
 pub fn execute_pow() {
@@ -23,7 +24,8 @@ pub fn execute_pow_v2() {
 }
 
 pub fn execute_pow_multithread() {
-    let blocks: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(5, 4);
+    let num = thread::available_parallelism().unwrap().get();
+    let blocks: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(5, num as u32);
     for block in blocks.into_iter() {
         let hash: String = utils::hex_to_string(&block.block_hash);
         let nonce: u32 = block.nonce;
@@ -34,8 +36,10 @@ pub fn execute_pow_multithread() {
 
 pub fn compare_outputs() {
     const HEIGHT: usize = 5;
+    let num = thread::available_parallelism().unwrap().get();
+
     let blocks_singlethread: Vec<pow::Block> = pow::proof_of_work(HEIGHT);
-    let blocks_multithread: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(HEIGHT, 4);
+    let blocks_multithread: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(HEIGHT, num as u32);
     let mut single_time_sum: u128 = 0;
     let mut multi_time_sum: u128 = 0;
 
