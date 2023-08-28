@@ -20,11 +20,11 @@ fn main() {
     info!("Create Ethereum Wallet Address");
     execute::calc_wallet::create_ethereum_address();
     info!("Execute PoW");
-    //execute::calc_pow::execute_pow();
+    execute::calc_pow::execute_pow();
     info!("Execute PoW v2");
-    //execute::calc_pow::execute_pow_v2();
+    execute::calc_pow::execute_pow_v2();
     info!("Execute PoW Multithread");
-    //execute::calc_pow::execute_pow_multithread();
+    execute::calc_pow::execute_pow_multithread();
     info!("Compare single thread pow and multithread pow");
     execute::calc_pow::compare_outputs();
 }

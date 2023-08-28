@@ -39,7 +39,8 @@ pub fn compare_outputs() {
     let num = thread::available_parallelism().unwrap().get();
 
     let blocks_singlethread: Vec<pow::Block> = pow::proof_of_work(HEIGHT);
-    let blocks_multithread: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(HEIGHT, num as u32);
+    let blocks_multithread: Vec<pow_multithread::Block> =
+        pow_multithread::proof_of_work(HEIGHT, num as u32);
     let mut single_time_sum: u128 = 0;
     let mut multi_time_sum: u128 = 0;
 
