@@ -24,5 +24,7 @@ fn main() {
     info!("Execute PoW v2");
     //execute::calc_pow::execute_pow_v2();
     info!("Execute PoW Multithread");
-    execute::calc_pow::execute_pow_multithread();
+    //execute::calc_pow::execute_pow_multithread();
+    info!("Compare single thread pow and multithread pow");
+    execute::calc_pow::compare_outputs();
 }
