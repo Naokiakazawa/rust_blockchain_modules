@@ -31,3 +31,23 @@ pub fn execute_pow_multithread() {
         info!(hash, nonce, elapsed_time, "Mining Result");
     }
 }
+
+pub fn compare_outputs() {
+    const HEIGHT: usize = 5;
+    let blocks_singlethread: Vec<pow::Block> = pow::proof_of_work(HEIGHT);
+    let blocks_multithread: Vec<pow_multithread::Block> = pow_multithread::proof_of_work(HEIGHT, 4);
+    for i in 0..HEIGHT {
+        assert!(
+            blocks_singlethread[i].block_hash == blocks_multithread[i].block_hash,
+            "single_output {:?}, multi_output{:?}",
+            utils::hex_to_string(&blocks_singlethread[i].block_hash),
+            utils::hex_to_string(&blocks_multithread[i].block_hash)
+        );
+        assert!(
+            blocks_singlethread[i].nonce == blocks_multithread[i].nonce,
+            "single_output {}, multi_output{}",
+            blocks_singlethread[i].nonce,
+            blocks_multithread[i].nonce
+        );
+    }
+}
