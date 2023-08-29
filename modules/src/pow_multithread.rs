@@ -17,10 +17,10 @@ pub struct Block {
 }
 
 impl Block {
-    fn new(initial_nonce: u32, prev_hash: [u8; 32]) -> Self {
+    fn new(initial_nonce: u32) -> Self {
         Block {
-            block_hash: [0; 32],
-            previous_hash: prev_hash,
+            block_hash: [0u8; 32],
+            previous_hash: [0u8; 32],
             timestamp: Utc::now().timestamp() as u32,
             nonce: initial_nonce,
             elapsed_time: 0,
@@ -42,7 +42,7 @@ pub fn proof_of_work(height: usize, threads: u32) -> Vec<Block> {
             (found.clone(), target.clone(), block_chain.clone()),
             |(found, target, block_chain), thread: u32| {
                 let mut output_hash_buffer: [u8; 32] = [0; 32];
-                let mut block: Block = Block::new(thread, [0u8; 32]);
+                let mut block: Block = Block::new(thread);
                 if block_chain.lock().unwrap().len() > 0 {
                     block.previous_hash = block_chain.lock().unwrap().last().unwrap().block_hash;
                 }
