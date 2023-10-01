@@ -65,5 +65,4 @@ impl BloomFilter {
         }
         true
     }
-
 }
