@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-sha2 = "0.10.7"
+sha2 = "0.10.8"
 modules = { path = "modules" }
 tracing = "0.1.37"
 tracing-subscriber = "0.3.17"
