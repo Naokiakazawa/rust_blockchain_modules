@@ -27,4 +27,6 @@ fn main() {
     execute::calc_pow::execute_pow_multithread();
     info!("Compare single thread pow and multithread pow");
     execute::calc_pow::compare_outputs();
+    info!("Execute Bloom Filter");
+    execute::calc_bloomfilter::bloomfilter();
 }
