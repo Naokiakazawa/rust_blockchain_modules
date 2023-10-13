@@ -40,29 +40,40 @@ impl BloomFilter {
     pub fn set(&mut self, item: &str) {
         let mut hasher: DefaultHasher = DefaultHasher::new();
         hasher.write(item.as_bytes());
-        let hash = hasher.finish();
-        let hash1 = hash as u32;
-        let hash2 = (hash >> 32) as u32;
+        let hash: u64 = hasher.finish();
+        let first_half_hash: u32 = hash as u32;
+        let second_half_hash: u32 = (hash >> 32) as u32;
 
         for i in 0..self.hash_count {
-            let index = (hash1.wrapping_add(i.wrapping_mul(hash2))) % (self.bitmap_size as u32);
+            let index = (first_half_hash.wrapping_add(i.wrapping_mul(second_half_hash)))
+                % (self.bitmap_size as u32);
             self.bit_vec.set(index as usize, true);
         }
     }
 
     pub fn check(&self, item: &str) -> bool {
-        let mut hasher = DefaultHasher::new();
+        let mut hasher: DefaultHasher = DefaultHasher::new();
         hasher.write(item.as_bytes());
-        let hash = hasher.finish();
-        let hash1 = hash as u32;
-        let hash2 = (hash >> 32) as u32;
+        let hash: u64 = hasher.finish();
+        let first_half_hash: u32 = hash as u32;
+        let second_half_hash: u32 = (hash >> 32) as u32;
 
         for i in 0..self.hash_count {
-            let index = (hash1.wrapping_add(i.wrapping_mul(hash2))) % (self.bitmap_size as u32);
+            let index = (first_half_hash.wrapping_add(i.wrapping_mul(second_half_hash)))
+                % (self.bitmap_size as u32);
             if !self.bit_vec.get(index as usize).unwrap() {
                 return false;
             }
         }
         true
+    }
+
+    pub fn get_summary(&self) -> (&BitVec, u32, usize, usize) {
+        (
+            &self.bit_vec,
+            self.hash_count,
+            self.bitmap_size,
+            self.items_count,
+        )
     }
 }
