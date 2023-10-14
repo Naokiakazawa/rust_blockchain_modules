@@ -1,6 +1,8 @@
 use bit_vec::BitVec;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hasher;
+use rayon::prelude::*;
+use std::sync::{Arc, Mutex};
 
 pub struct BloomFilter {
     pub bit_vec: BitVec,
@@ -48,6 +50,21 @@ impl BloomFilter {
             let index = (first_half_hash.wrapping_add(i.wrapping_mul(second_half_hash)))
                 % (self.bitmap_size as u32);
             self.bit_vec.set(index as usize, true);
+        }
+    }
+
+    pub fn set_multiple(&mut self, items: &[&str]) {
+        let num = thread::available_parallelism().unwrap().get();
+
+        // Perform parallel processing using multithreading
+        let mut hasher: DefaultHasher = DefaultHasher::new();
+        hasher.write(item.as_bytes());
+        let hash: u64 = hasher.finish();
+        let first_half_hash: u32 = hash as u32;
+        let second_half_hash: u32 = (hash >> 32) as u32;
+
+        for item in items {
+            self.set(item);
         }
     }
 
