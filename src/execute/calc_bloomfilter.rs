@@ -1,4 +1,5 @@
 use modules::bloomfilter::BloomFilter;
+use tracing::info;
 
 pub fn bloomfilter() {
     let items = [
@@ -16,7 +17,7 @@ pub fn bloomfilter() {
     }
 
     let (bitvec, k, m, n) = bf.get_summary();
-    println!(
+    info!(
         "bitvec: {:?}, hash_count: {}, size: {}, items: {}",
         bitvec, k, m, n
     );

@@ -14,7 +14,7 @@ fn compute_bitmap_size(items_count: usize, fp_p: f64) -> usize {
     assert!(fp_p > 0.0 && fp_p < 1.0);
     let log2: f64 = std::f64::consts::LN_2;
     let log2_2: f64 = log2 * log2;
-    ((items_count as f64) * f64::ln(fp_p) / (-8.0 * log2_2)).ceil() as usize
+    ((items_count as f64) * f64::ln(fp_p) / (-log2_2)).ceil() as usize
 }
 
 fn compute_hash_count(items_count: usize, bitmap_size: usize) -> u32 {
@@ -61,7 +61,11 @@ impl BloomFilter {
         for i in 0..self.hash_count {
             let index = (first_half_hash.wrapping_add(i.wrapping_mul(second_half_hash)))
                 % (self.bitmap_size as u32);
-            if !self.bit_vec.get(index as usize).unwrap() {
+            if let Some(value) = self.bit_vec.get(index as usize) {
+                if !value {
+                    return false;
+                }
+            } else {
                 return false;
             }
         }
