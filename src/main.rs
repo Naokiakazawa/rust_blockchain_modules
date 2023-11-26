@@ -1,7 +1,7 @@
+mod execute;
+
 use tracing::{info, subscriber, Level};
 use tracing_subscriber::FmtSubscriber;
-
-mod execute;
 
 fn main() {
     let subscriber = FmtSubscriber::builder()
@@ -9,7 +9,6 @@ fn main() {
         .finish();
     subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
 
-    /*
     info!("Execute Hash");
     execute::calc_hash::execute_hash();
     info!("Execute Hashchain");
@@ -28,7 +27,6 @@ fn main() {
     execute::calc_pow::execute_pow_multithread();
     info!("Compare single thread pow and multithread pow");
     execute::calc_pow::compare_outputs();
-    */
     info!("Execute Bloom Filter");
     execute::calc_bloomfilter::bloomfilter();
 }
